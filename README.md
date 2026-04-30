@@ -37,14 +37,14 @@ docker volume create mysql_data
 ## 🐬 4. Subir MySQL
 
 ```bash
-docker run-d \
+docker run -d \
 --name mysql-rm561713 \
 --network minha-rede \
--p3306:3306 \
--eMYSQL_ROOT_PASSWORD=123456 \
--eMYSQL_DATABASE=meubanco \
--eMYSQL_USER=user \
--eMYSQL_PASSWORD=123456 \
+-p 3306:3306 \
+-e MYSQL_ROOT_PASSWORD=123456 \
+-e MYSQL_DATABASE=meubanco \
+-e MYSQL_USER=user \
+-e MYSQL_PASSWORD=123456 \
 -v mysql_data:/var/lib/mysql \
 mysql:8.0
 ```
@@ -52,8 +52,8 @@ mysql:8.0
 ### 🔎 Testar MySQL
 
 ```bash
-dockerps
-docker logs-f mysql-rm561713
+docker ps
+docker logs -f mysql-rm561713
 ```
 
 ---
@@ -61,7 +61,7 @@ docker logs-f mysql-rm561713
 ## 🧪 5. Acessar banco (opcional)
 
 ```bash
-docker exec-it mysql-rm561713 mysql-u user-p
+docker exec -it mysql-rm561713 mysql -u user -p
 ```
 
 Senha:
@@ -95,17 +95,17 @@ cd ~/CP2_cloud_docker/api/projeto-usuarios
 ### 🚀 Rodar API
 
 ```bash
-docker run-d \
+docker run -d \
 --name api-rm561713 \
 --network minha-rede \
--p8080:8080 \
+-p 8080:8080 \
 -v $(pwd):/app \
 -w /app \
--eSPRING_DATASOURCE_URL=jdbc:mysql://mysql-rm561713:3306/meubanco \
--eSPRING_DATASOURCE_USERNAME=user \
--eSPRING_DATASOURCE_PASSWORD=123456 \
+-e SPRING_DATASOURCE_URL=jdbc:mysql://mysql-rm561713:3306/meubanco \
+-e SPRING_DATASOURCE_USERNAME=user \
+-e SPRING_DATASOURCE_PASSWORD=123456 \
 maven:3.9-eclipse-temurin-21 \
-bash-c"mvn clean package -DskipTests && java -jar target/*.jar"
+bash -c "mvn clean package -DskipTests && java -jar target/*.jar"
 ```
 
 ---
@@ -113,7 +113,7 @@ bash-c"mvn clean package -DskipTests && java -jar target/*.jar"
 ### 📜 Ver logs da API
 
 ```bash
-docker logs-f api-rm561713
+docker logs -f api-rm561713
 ```
 
 ---
