@@ -123,12 +123,63 @@ docker logs -f api-rm561713
 Após subir a API:
 
 ```bash
-http://localhost:8080
+http://20.220.147.230:8080
 ```
 
 Endpoints disponíveis:
 
-- GET /usuarios
-- POST /usuarios
-- PUT /usuarios
-- DELETE /usuarios
+GET
+```bash
+http://20.220.147.230:8080/usuarios/todos
+```
+
+POST
+```bash
+http://20.220.147.230:8080/usuarios/novo
+```
+```bash
+{
+    "chaveComposta": {
+        "id": 3,
+        "rm": "rm3"
+    },
+    "senha": "senha3",
+    "status": "INATIVO",
+    "pessoa": {
+        "id": 2,
+        "nome": "Pessoa 2",
+        "cpf": "124",
+        "dataNascimento": "2006-01-01",
+        "email": "pessoa2@fiap.com.br"
+    }
+}
+```
+PUT 
+```bash
+http://20.220.147.230:8080/usuarios/atualizar/3/rm3
+```
+```bash
+{
+    "chaveComposta": {
+        "id": 3,
+        "rm": "rm3"
+    },
+    "senha": "senhaALTERADA",
+    "status": "INATIVO",
+    "pessoa": {
+        "id": 2,
+        "nome": "Pessoa 2",
+        "cpf": "124",
+        "dataNascimento": "2006-01-01",
+        "email": "pessoa2@fiap.com.br"
+    }
+}
+```
+DELETE
+```bash
+http://20.220.147.230:8080/usuarios/excluir/3/rm3
+```
+
+
+
+
